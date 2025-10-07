@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/achyuth706/mp2-aariga2/static/css/main.9990ad12.css",
+    "main.js": "/achyuth706/mp2-aariga2/static/js/main.4944fe93.js",
+    "index.html": "/achyuth706/mp2-aariga2/index.html",
+    "main.9990ad12.css.map": "/achyuth706/mp2-aariga2/static/css/main.9990ad12.css.map",
+    "main.4944fe93.js.map": "/achyuth706/mp2-aariga2/static/js/main.4944fe93.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9990ad12.css",
+    "static/js/main.4944fe93.js"
+  ]
+}
