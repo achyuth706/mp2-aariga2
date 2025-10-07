@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { getPokemonDetail } from "../api/pokemon";
 import type { PokemonDetail } from "../types";
@@ -8,7 +8,9 @@ export default function DetailView() {
   const { id } = useParams<{ id: string }>();
   const nav = useNavigate();
   const location = useLocation();
-  const from = (location.state as any)?.from as "list" | "gallery" | undefined;
+  const fromRef = useRef<"list" | "gallery" | undefined>(
+    (location.state as any)?.from
+  );
 
   const [data, setData] = useState<PokemonDetail | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
@@ -30,28 +32,29 @@ export default function DetailView() {
 
   function goPrev() {
     if (!data) return;
-    if (ids.length) {
+    if (ids.length && currentIndex !== -1) {
       const prev = (currentIndex - 1 + ids.length) % ids.length;
-      nav(`/pokemon/${ids[prev]}`);
+      nav(`/pokemon/${ids[prev]}`, { state: { from: fromRef.current } });
     } else {
-      nav(`/pokemon/${data.id === 1 ? 500 : data.id - 1}`);
+      const prevId = Math.max(1, data.id - 1);
+      nav(`/pokemon/${prevId}`, { state: { from: fromRef.current } });
     }
   }
 
   function goNext() {
     if (!data) return;
-    if (ids.length) {
+    if (ids.length && currentIndex !== -1) {
       const next = (currentIndex + 1) % ids.length;
-      nav(`/pokemon/${ids[next]}`);
+      nav(`/pokemon/${ids[next]}`, { state: { from: fromRef.current } });
     } else {
-      nav(`/pokemon/${data.id === 500 ? 1 : data.id + 1}`);
+      const nextId = data.id + 1;
+      nav(`/pokemon/${nextId}`, { state: { from: fromRef.current } });
     }
   }
 
   function goBack() {
-    if (from === "gallery") nav("/gallery");
-    else if (from === "list") nav("/");
-    else nav("/"); // deep link fallback
+    if (fromRef.current === "gallery") nav("/gallery");
+    else nav("/");
   }
 
   if (status === "loading") return <p className="hint">Loading…</p>;
@@ -64,10 +67,9 @@ export default function DetailView() {
 
   return (
     <section className="detail">
- 
       <div className="detailTop">
         <button className="btn btn-back" onClick={goBack}>
-          ← Back {from === "gallery" ? "to Gallery" : "to List"}
+          ← Back to {fromRef.current === "gallery" ? "Gallery" : "List"}
         </button>
       </div>
 
@@ -86,12 +88,10 @@ export default function DetailView() {
         </ul>
       </div>
 
-  
       <div className="detailPager">
         <button className="btn btn-nav btn-prev" onClick={goPrev}>← Previous</button>
         <button className="btn btn-nav btn-next" onClick={goNext}>Next →</button>
       </div>
     </section>
   );
-
 }
