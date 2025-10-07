@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "name": "bulbasaur",
+    "height": 7,
+    "weight": 69,
+    "base_experience": 64,
+    "abilities": [{ "ability": { "name": "overgrow" } }],
+    "types": [{ "type": { "name": "grass" } }, { "type": { "name": "poison" } }],
+    "sprites": {
+      "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      "other": {
+        "official-artwork": {
+          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+        }
+      }
+    }
+  }
+]
