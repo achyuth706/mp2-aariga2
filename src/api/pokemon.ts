@@ -45,7 +45,7 @@ export async function getAllTypes(): Promise<TypeOption[]> {
     });
 }
 
-export async function getAllPokemonBasic(limit = 500): Promise<PokemonListItem[]> {
+export async function getAllPokemonBasic(limit = 1025): Promise<PokemonListItem[]> {
     return memo(`all-basic-${limit}`, async () => {
         try {
             const ids = Array.from({ length: limit }, (_, i) => i + 1);

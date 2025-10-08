@@ -20,7 +20,7 @@ export default function GalleryView() {
 
     useEffect(() => {
         setStatus("loading");
-        Promise.all([getAllPokemonBasic(500), getAllTypes()])
+        Promise.all([getAllPokemonBasic(1025), getAllTypes()])
             .then(([pokemon, ts]) => {
                 setData(pokemon);
                 setTypes(ts.map((t) => t.name));

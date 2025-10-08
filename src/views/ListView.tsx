@@ -17,7 +17,7 @@ export default function ListView() {
 
     useEffect(() => {
         setStatus("loading");
-        getAllPokemonBasic(500)
+        getAllPokemonBasic(1025)
             .then((res) => { setData(res); setStatus("idle"); })
             .catch(() => setStatus("error"));
     }, []);
